@@ -46,6 +46,13 @@ namespace MagicVilla_VillaAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<VillaDTO> CreateVilla([FromBody]VillaDTO villa) 
         { 
+            // Check for duplicates
+            if(VillaStore.villaList.FirstOrDefault(v => v.Name.ToLower() == villa.Name.ToLower()) != null)
+            {
+                ModelState.AddModelError("Duplicate Villa Name", "Villa already exists");
+                return BadRequest(ModelState);
+            }
+
             if(villa == null)
             {
                 return BadRequest(villa);
