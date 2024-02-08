@@ -4,7 +4,7 @@ using MagicVilla_VillaAPI.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 namespace MagicVilla_VillaAPI.Controllers
 {
-//    [Route("api/[controller]")]
+    //    [Route("api/[controller]")]
     [Route("api/VillaAPI")]
     [ApiController]
     public class VillaAPIController : ControllerBase
@@ -25,14 +25,14 @@ namespace MagicVilla_VillaAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<VillaDTO> GetVillaById(int id)
         {
-            if(id == 0)
+            if (id == 0)
             {
                 return BadRequest();
             }
 
             var villa = VillaStore.villaList.FirstOrDefault(villa => villa.Id == id);
 
-            if(villa == null)
+            if (villa == null)
             {
                 return NotFound();
             }
@@ -44,21 +44,21 @@ namespace MagicVilla_VillaAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<VillaDTO> CreateVilla([FromBody]VillaDTO villa) 
-        { 
+        public ActionResult<VillaDTO> CreateVilla([FromBody] VillaDTO villa)
+        {
             // Check for duplicates
-            if(VillaStore.villaList.FirstOrDefault(v => v.Name.ToLower() == villa.Name.ToLower()) != null)
+            if (VillaStore.villaList.FirstOrDefault(v => v.Name.ToLower() == villa.Name.ToLower()) != null)
             {
                 ModelState.AddModelError("Duplicate Villa Name", "Villa already exists");
                 return BadRequest(ModelState);
             }
 
-            if(villa == null)
+            if (villa == null)
             {
                 return BadRequest(villa);
             }
-    
-            if(villa.Id > 0) 
+
+            if (villa.Id > 0)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
@@ -70,5 +70,67 @@ namespace MagicVilla_VillaAPI.Controllers
             return CreatedAtRoute("GetVillas", new { id = villa.Id }, villa);
 
         }
+
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpDelete("{id:int}", Name = "DeleteVilla")]
+        public IActionResult DeleteVilla(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+
+            var villa = VillaStore.villaList.FirstOrDefault(villa => villa.Id == id);
+
+            if (villa == null)
+            {
+                return NotFound();
+            }
+
+            VillaStore.villaList.Remove(villa);
+            return NoContent();
+        }
+
+        [HttpPut("{id:int}", Name ="UpdateVilla")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult UpdateVilla(int id, [FromBody]VillaDTO villaDTO)
+        {
+            if(villaDTO == null || id != villaDTO.Id)
+            {
+                return BadRequest();
+            }
+
+            var villa = VillaStore.villaList.FirstOrDefault(villa => villa.Id == id);
+            villa.Name = villaDTO.Name;
+            villa.Occupancy = villaDTO.Occupancy;
+            villa.sqft = villaDTO.sqft;
+
+            return NoContent();
+
+        }
+ 
+        
+        [HttpPatch("{id:int}", Name ="UpdateVilla")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult UpdateVilla(int id, [FromBody]VillaDTO villaDTO)
+        {
+            if(villaDTO == null || id != villaDTO.Id)
+            {
+                return BadRequest();
+            }
+
+            var villa = VillaStore.villaList.FirstOrDefault(villa => villa.Id == id);
+            villa.Name = villaDTO.Name;
+            villa.Occupancy = villaDTO.Occupancy;
+            villa.sqft = villaDTO.sqft;
+
+            return NoContent();
+
+        }
+
     }
 }
