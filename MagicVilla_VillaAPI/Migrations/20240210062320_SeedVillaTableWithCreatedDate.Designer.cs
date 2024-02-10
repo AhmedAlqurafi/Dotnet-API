@@ -4,6 +4,7 @@ using MagicVilla_VillaAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MagicVilla_VillaAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240210062320_SeedVillaTableWithCreatedDate")]
+    partial class SeedVillaTableWithCreatedDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,9 +71,9 @@ namespace MagicVilla_VillaAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 6,
+                            Id = 1,
                             Amenity = "",
-                            CreatedDate = new DateTime(2024, 2, 10, 9, 24, 23, 923, DateTimeKind.Local).AddTicks(4598),
+                            CreatedDate = new DateTime(2024, 2, 10, 9, 23, 19, 882, DateTimeKind.Local).AddTicks(9377),
                             Details = "Blah Blag Blah",
                             ImageUrl = "",
                             Name = "Royal Villa",
@@ -81,9 +84,9 @@ namespace MagicVilla_VillaAPI.Migrations
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 2,
                             Amenity = "",
-                            CreatedDate = new DateTime(2024, 2, 10, 9, 24, 23, 923, DateTimeKind.Local).AddTicks(4607),
+                            CreatedDate = new DateTime(2024, 2, 10, 9, 23, 19, 882, DateTimeKind.Local).AddTicks(9384),
                             Details = "Blah Blag Blah",
                             ImageUrl = "",
                             Name = "Royal Villa",
@@ -96,7 +99,7 @@ namespace MagicVilla_VillaAPI.Migrations
                         {
                             Id = 3,
                             Amenity = "",
-                            CreatedDate = new DateTime(2024, 2, 10, 9, 24, 23, 923, DateTimeKind.Local).AddTicks(4608),
+                            CreatedDate = new DateTime(2024, 2, 10, 9, 23, 19, 882, DateTimeKind.Local).AddTicks(9385),
                             Details = "Blah Blag Blah",
                             ImageUrl = "",
                             Name = "Royal Villa",
@@ -109,7 +112,7 @@ namespace MagicVilla_VillaAPI.Migrations
                         {
                             Id = 4,
                             Amenity = "",
-                            CreatedDate = new DateTime(2024, 2, 10, 9, 24, 23, 923, DateTimeKind.Local).AddTicks(4609),
+                            CreatedDate = new DateTime(2024, 2, 10, 9, 23, 19, 882, DateTimeKind.Local).AddTicks(9387),
                             Details = "Blah Blag Blah",
                             ImageUrl = "",
                             Name = "Royal Villa",
@@ -122,7 +125,7 @@ namespace MagicVilla_VillaAPI.Migrations
                         {
                             Id = 5,
                             Amenity = "",
-                            CreatedDate = new DateTime(2024, 2, 10, 9, 24, 23, 923, DateTimeKind.Local).AddTicks(4610),
+                            CreatedDate = new DateTime(2024, 2, 10, 9, 23, 19, 882, DateTimeKind.Local).AddTicks(9388),
                             Details = "Blah Blag Blah",
                             ImageUrl = "",
                             Name = "Royal Villa",
